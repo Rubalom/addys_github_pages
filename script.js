@@ -1,0 +1,1 @@
+document.getElementById('video-container').style.height = document.getElementById('video').offsetHeight + "px";
