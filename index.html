@@ -60,7 +60,7 @@
         <div id="row-div" class="row" style="position:absolute; min-width:640px">
           <div class="col-sm-6 col-xs-12">
             <h1 style="margin-left:20px">Поиск каналов</h1>
-            <h4 style="margin-left:20px"><b>Найдите каналы по параметрам их целевой аудитории:</b></h4>
+            <h4 class="h4-head"style="margin-left:20px"><b>Найдите каналы по параметрам их целевой аудитории:</b></h4>
             <div class="col-xs-6 text-center">
               <div>
                 <img src="test-img.jpg" style="width:50%; margin-left:auto; margin-right:auto" class="img-responsive">
@@ -93,7 +93,7 @@
         <div id="row-div1" class="row" style="position:fixed; opacity:0; top:0; min-width:640px">
           <div class="col-sm-6 col-xs-12">
             <h1 style="margin-left:20px">Поиск каналов</h1>
-            <h4 style="margin-left:20px"><b>Найдите каналы по параметрам их целевой аудитории:</b></h4>
+            <h4 class="h4-head"style="margin-left:20px"><b>Найдите каналы по параметрам их целевой аудитории:</b></h4>
             <div class="col-xs-6 text-center">
               <div>
                 <img src="test-img1.png" style="width:50%; margin-left:auto; margin-right:auto" class="img-responsive">
@@ -126,7 +126,7 @@
         <div id="row-div2" class="row" style="position:fixed; opacity:0; top:0; min-width:640px">
           <div class="col-sm-6 col-xs-12">
             <h1 style="margin-left:20px">Поиск каналов</h1>
-            <h4 style="margin-left:20px"><b>Найдите каналы по параметрам их целевой аудитории:</b></h4>
+            <h4 class="h4-head"style="margin-left:20px"><b>Найдите каналы по параметрам их целевой аудитории:</b></h4>
             <div class="col-xs-6 text-center">
               <div>
                 <img src="test-img2.png" style="width:50%; margin-left:auto; margin-right:auto" class="img-responsive">
@@ -218,6 +218,36 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script> 
     <script src="script.js"></script>
     <script>
+      var mql = window.matchMedia("(orientation: portrait)");
+      if(mql.matches) {  
+    // Портретная ориентация
+      } 
+      else {  
+        var cols = $('#scroll-div div.col-sm-6');
+        cols.removeClass("col-sm-6 col-xs-12").addClass("col-xs-6 no-portrait");
+        var h1 = $('#scroll-div h1');
+        h1.css("font-size","30px");
+        var h4 = $('#scroll-div h4.h4-head');
+        h4.css("font-size","14px");
+      }
+      mql.addListener(function(m) {
+        if(m.matches) {
+          var cols = $('#scroll-div div.no-portrait');
+          cols.removeClass("no-portrait col-xs-6").addClass("col-sm-6 col-xs-12");
+          var h1 = $('#scroll-div h1');
+          h1.css("font-size","36px");
+          var h4 = $('#scroll-div h4.h4-head');
+          h4.css("font-size","18px");
+        }
+        else {
+          var cols = $('#scroll-div div.col-sm-6');
+          cols.removeClass("col-sm-6 col-xs-12").addClass("col-xs-6 no-portrait");
+          var h1 = $('#scroll-div h1');
+          h1.css("font-size","30px");
+          var h4 = $('#scroll-div h4.h4-head');
+          h4.css("font-size","14px");
+        }
+      });
       if($(window).width() < 1400){
         var info = $("#form-box");
         var close = $("#close");
