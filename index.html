@@ -268,6 +268,8 @@
           $('#row-div2').css('opacity','0');
         }
       });
+      var wS = window.innerHeight;
+      console.log(wS);
       var supportPageOffset = window.pageXOffset !== undefined;
       var isCSS1Compat = ((document.compatMode || "") === "CSS1Compat");
       if($(window).width() < 767) {
@@ -283,6 +285,8 @@
           h1.css("margin-bottom","0px");
           var h4 = $('#scroll-div p.h4-head');
           h4.css("font-size","10px");
+          window.wS = window.innerHeight;
+          console.log(wS);
         }
         mql.addListener(function(m) {
           if(m.matches) {
@@ -293,6 +297,8 @@
             h1.css("margin-bottom","10px");
             var h4 = $('#scroll-div p.h4-head');
             h4.css("font-size","18px");
+            window.wS = window.innerHeight;
+            console.log(wS);
           }
           else {
             var cols = $('#scroll-div div.col-sm-6');
@@ -302,9 +308,12 @@
             h1.css("margin-bottom","0px");
             var h4 = $('#scroll-div p.h4-head');
             h4.css("font-size","10px");
+            window.wS = window.innerHeight;
+            console.log(wS);
           }
         });
       }
+        
       function scrollChange1(){
         var p = $('#scroll-div').offset().top;
         if (window.screen.width < 767) {
@@ -341,13 +350,18 @@
             }
           }
         }
-        console.log(window.innerHeight);
-        console.log(windowSize);
-        console.log(scrollT);
-        console.log($('#video-container-bottom').offset().top);
         if ((scrollT + window.innerHeight) > ($('#video-container-bottom').offset().top)) {
           $('#row-div2').css('top', '');
-          document.getElementById('row-div2').style.bottom = window.innerHeight - $('#row-div2').height();
+          if (window.screen.width < 767) {
+            console.log("---------------------");
+            console.log(wS);
+            console.log($('#row-div2').height());
+            console.log(window.innerHeight);
+            document.getElementById('row-div2').style.bottom = wS - $('#row-div2').height();
+          }
+          else {
+            document.getElementById('row-div2').style.bottom = window.innerHeight - $('#row-div2').height();
+          }
           $('#row-div2').css('position','absolute');
         }
         else {
