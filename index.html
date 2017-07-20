@@ -251,6 +251,12 @@
       $("#scroll-div").height(c);
       $( window ).resize(function() {
         document.getElementById('video-container').style.height = document.getElementById('video').offsetHeight + "px";
+        if (window.screen.width < 767) {
+          var c = window.screen.height*2.5;
+        }
+        else {
+          var c = window.innerHeight*2.5;  
+        }
         var c = window.innerHeight*2.5;
         $("#scroll-div").height(c);
         var scrollTop = supportPageOffset ? window.pageYOffset : isCSS1Compat ? document.documentElement.scrollTop : document.body.scrollTop;
@@ -335,9 +341,13 @@
             }
           }
         }
-        if ((scrollT + windowSize) > ($('#video-container-bottom').offset().top)) {
+        console.log(window.innerHeight);
+        console.log(windowSize);
+        console.log(scrollT);
+        console.log($('#video-container-bottom').offset().top);
+        if ((scrollT + window.innerHeight) > ($('#video-container-bottom').offset().top)) {
           $('#row-div2').css('top', '');
-          document.getElementById('row-div2').style.bottom = windowSize - $('#row-div2').height();
+          document.getElementById('row-div2').style.bottom = window.innerHeight - $('#row-div2').height();
           $('#row-div2').css('position','absolute');
         }
         else {
