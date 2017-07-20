@@ -252,12 +252,11 @@
       $( window ).resize(function() {
         document.getElementById('video-container').style.height = document.getElementById('video').offsetHeight + "px";
         if (window.screen.width < 767) {
-          var c = window.screen.height*2.5;
+          window.c = window.screen.height*2.5;
         }
         else {
-          var c = window.innerHeight*2.5;  
+          window.c = window.innerHeight*2.5;  
         }
-        var c = window.innerHeight*2.5;
         $("#scroll-div").height(c);
         var scrollTop = supportPageOffset ? window.pageYOffset : isCSS1Compat ? document.documentElement.scrollTop : document.body.scrollTop;
         if (scrollTop < $('#scroll-div').offset().top) {
