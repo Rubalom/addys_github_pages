@@ -218,6 +218,52 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script> 
     <script src="script.js"></script>
     <script>
+      if(window.screen.width < 1400){
+        var info = $("#form-box");
+        var close = $("#close");
+        close.click(function() {
+          info.css('opacity','0');
+          setTimeout(function () {
+            info.css('z-index','-1');
+          }, 500);
+        });
+        var button = $("#pop-btn");
+        button.click(function() {
+          info.css('opacity','1');
+          info.css('z-index','1000');
+        })
+      }
+      $('video').each(function () {
+        enableInlineVideo(this);
+      });
+      window.onscroll = scrollChange1;
+      if(window.screen.width >= 1400){
+        $("[data-toggle=popover]").popover({
+          html: true,
+          title : '<span><strong>Header</strong></span>'+
+                  '<button type="button" id="close" class="close" onclick="$(&quot;#pop-btn&quot;).popover(&quot;hide&quot;);">&times;</button>',
+          content: function() {
+            return $('#popover-content').html();
+          }
+        });
+      }
+      var c = window.innerHeight*2.5;
+      $("#scroll-div").height(c);
+      $( window ).resize(function() {
+        document.getElementById('video-container').style.height = document.getElementById('video').offsetHeight + "px";
+        var c = window.innerHeight*2.5;
+        $("#scroll-div").height(c);
+        var scrollTop = supportPageOffset ? window.pageYOffset : isCSS1Compat ? document.documentElement.scrollTop : document.body.scrollTop;
+        if (scrollTop < $('#scroll-div').offset().top) {
+          $('#row-div').css('top','');
+          $('#row-div').css('opacity','1');
+          $('#row-div').css('position','absolute');
+          $('#row-div1').css('opacity','0');
+          $('#row-div2').css('opacity','0');
+        }
+      });
+      var supportPageOffset = window.pageXOffset !== undefined;
+      var isCSS1Compat = ((document.compatMode || "") === "CSS1Compat");
       if($(window).width() < 767) {
         var mql = window.matchMedia("(orientation: portrait)");
         if(mql.matches) {  
@@ -253,55 +299,18 @@
           }
         });
       }
-      if($(window).width() < 1400){
-        var info = $("#form-box");
-        var close = $("#close");
-        close.click(function() {
-          info.css('opacity','0');
-          setTimeout(function () {
-            info.css('z-index','-1');
-          }, 500);
-        });
-        var button = $("#pop-btn");
-        button.click(function() {
-          info.css('opacity','1');
-          info.css('z-index','1000');
-        })
-      }
-      $('video').each(function () {
-        enableInlineVideo(this);
-      });
-      window.onscroll = scrollChange1;
-      if($(window).width() >= 1400){
-        $("[data-toggle=popover]").popover({
-          html: true,
-          title : '<span><strong>Header</strong></span>'+
-                  '<button type="button" id="close" class="close" onclick="$(&quot;#pop-btn&quot;).popover(&quot;hide&quot;);">&times;</button>',
-          content: function() {
-            return $('#popover-content').html();
-          }
-        });
-      }
-      var c = window.innerHeight*2.5;
-      $("#scroll-div").height(c);
-      var windowSize = window.innerHeight;
-      $( window ).resize(function() {
-        document.getElementById('video-container').style.height = document.getElementById('video').offsetHeight + "px";
-      });
-      var p = $('#scroll-div').offset().top;
-      var x = $('#scroll-div').height() / 3;
-      var supportPageOffset = window.pageXOffset !== undefined;
-      var isCSS1Compat = ((document.compatMode || "") === "CSS1Compat");
       function scrollChange1(){
+        var p = $('#scroll-div').offset().top;
+        var windowSize = window.innerHeight; 
         var scrollT = supportPageOffset ? window.pageYOffset : isCSS1Compat ? document.documentElement.scrollTop : document.body.scrollTop;
         var p = $('#scroll-div').offset().top;
-        if (scrollT > p + 4*x/3) {
+        if (scrollT > p + windowSize) {
           $('#row-div').css('opacity','0');
           $('#row-div1').css('opacity','0');
           $('#row-div2').css('opacity','1');
         }
         else {
-          if (scrollT > p + 1*x/2) {
+          if (scrollT > p + windowSize/2) {
             $('#row-div').css('opacity','0');
             $('#row-div2').css('opacity','0');
             $('#row-div1').css('opacity','1');
@@ -316,11 +325,11 @@
             }
             else {
               $('#row-div').css('top','');
+              $('#row-div').css('opacity','1');
               $('#row-div').css('position','absolute');
             }
           }
         }
-
         if ((scrollT + windowSize) > ($('#video-container-bottom').offset().top)) {
           $('#row-div2').css('top', '');
           document.getElementById('row-div2').style.bottom = windowSize - $('#row-div2').height();
