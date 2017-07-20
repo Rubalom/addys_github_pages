@@ -301,7 +301,12 @@
       }
       function scrollChange1(){
         var p = $('#scroll-div').offset().top;
-        var windowSize = window.innerHeight; 
+        if (window.screen.width < 767) {
+          var windowSize = window.screen.height;
+        }
+        else {
+          var windowSize = window.innerHeight;
+        }
         var scrollT = supportPageOffset ? window.pageYOffset : isCSS1Compat ? document.documentElement.scrollTop : document.body.scrollTop;
         var p = $('#scroll-div').offset().top;
         if (scrollT > p + windowSize) {
