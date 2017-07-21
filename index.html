@@ -252,7 +252,7 @@
       $( window ).resize(function() {
         document.getElementById('video-container').style.height = document.getElementById('video').offsetHeight + "px";
         if (window.screen.width < 767) {
-          window.c = window.screen.height*2.5;
+          
         }
         else {
           window.c = window.innerHeight*2.5;  
@@ -268,15 +268,20 @@
         }
       });
       var wS = window.innerHeight;
-      console.log(wS);
+      var windowSize = window.innerHeight;
       var supportPageOffset = window.pageXOffset !== undefined;
       var isCSS1Compat = ((document.compatMode || "") === "CSS1Compat");
-      if($(window).width() < 767) {
+      if(window.screen.width < 767) {
         var mql = window.matchMedia("(orientation: portrait)");
         if(mql.matches) {  
-          // Портретная ориентация
+          window.c = window.innerHeight*2.5;
+          $("#scroll-div").height(c);
+          window.windowSize = window.innerHeight; 
         } 
-        else {  
+        else {
+          window.c = window.screen.height*2.5;
+          $("#scroll-div").height(c);
+          window.windowSize = window.screen.height; 
           var cols = $('#scroll-div div.col-sm-6');
           cols.removeClass("col-sm-6 col-xs-12").addClass("col-xs-6 no-portrait");
           var h1 = $('#scroll-div p.p-head');
@@ -285,10 +290,14 @@
           var h4 = $('#scroll-div p.h4-head');
           h4.css("font-size","10px");
           window.wS = window.innerHeight;
-          console.log(wS);
         }
         mql.addListener(function(m) {
           if(m.matches) {
+            window.c = window.innerHeight*2.5;
+            console.log("c1 = ", c);
+            $("#scroll-div").height(c);
+            window.windowSize = window.innerHeight;
+            console.log("windowSize1 = ", windowSize); 
             var cols = $('#scroll-div div.no-portrait');
             cols.removeClass("no-portrait col-xs-6").addClass("col-sm-6 col-xs-12");
             var h1 = $('#scroll-div p.p-head');
@@ -297,9 +306,11 @@
             var h4 = $('#scroll-div p.h4-head');
             h4.css("font-size","18px");
             window.wS = window.innerHeight;
-            console.log(wS);
           }
           else {
+            window.c = window.screen.height*2.5;
+            $("#scroll-div").height(c);
+            window.windowSize = window.screen.height;
             var cols = $('#scroll-div div.col-sm-6');
             cols.removeClass("col-sm-6 col-xs-12").addClass("col-xs-6 no-portrait");
             var h1 = $('#scroll-div p.p-head');
@@ -308,28 +319,29 @@
             var h4 = $('#scroll-div p.h4-head');
             h4.css("font-size","10px");
             window.wS = window.innerHeight;
-            console.log(wS);
           }
         });
       }
         
       function scrollChange1(){
         var p = $('#scroll-div').offset().top;
+        console.log("c2 = ", c);
         if (window.screen.width < 767) {
-          var windowSize = window.screen.height;
+
         }
         else {
           var windowSize = window.innerHeight;
         }
+        console.log("windowSize2 = ", window.windowSize);
         var scrollT = supportPageOffset ? window.pageYOffset : isCSS1Compat ? document.documentElement.scrollTop : document.body.scrollTop;
         var p = $('#scroll-div').offset().top;
-        if (scrollT > p + windowSize) {
+        if (scrollT > p + window.windowSize) {
           $('#row-div').css('opacity','0');
           $('#row-div1').css('opacity','0');
           $('#row-div2').css('opacity','1');
         }
         else {
-          if (scrollT > p + windowSize/2) {
+          if (scrollT > p + window.windowSize/2) {
             $('#row-div').css('opacity','0');
             $('#row-div2').css('opacity','0');
             $('#row-div1').css('opacity','1');
@@ -352,10 +364,6 @@
         if ((scrollT + window.innerHeight) > ($('#video-container-bottom').offset().top)) {
           $('#row-div2').css('top', '');
           if (window.screen.width < 767) {
-            console.log("---------------------");
-            console.log(wS);
-            console.log($('#row-div2').height());
-            console.log(window.innerHeight);
             document.getElementById('row-div2').style.bottom = wS - $('#row-div2').height();
           }
           else {
