@@ -252,12 +252,12 @@
       $( window ).resize(function() {
         document.getElementById('video-container').style.height = document.getElementById('video').offsetHeight + "px";
         if (window.screen.width < 767) {
-          
+
         }
         else {
-          window.c = window.innerHeight*2.5;  
+          window.c = window.innerHeight*2.5;
+          $("#scroll-div").height(c);
         }
-        $("#scroll-div").height(c);
         var scrollTop = supportPageOffset ? window.pageYOffset : isCSS1Compat ? document.documentElement.scrollTop : document.body.scrollTop;
         if (scrollTop < $('#scroll-div').offset().top) {
           $('#row-div').css('top','');
@@ -330,9 +330,9 @@
 
         }
         else {
-          var windowSize = window.innerHeight;
+          window.windowSize = window.innerHeight;
         }
-        console.log("windowSize2 = ", window.windowSize);
+        console.log("windowSize2 = ", windowSize);
         var scrollT = supportPageOffset ? window.pageYOffset : isCSS1Compat ? document.documentElement.scrollTop : document.body.scrollTop;
         var p = $('#scroll-div').offset().top;
         if (scrollT > p + window.windowSize) {
