@@ -58,7 +58,7 @@
     <div id="scroll-div"  style="position:relative; background-color:#eee; height: 100%; min-height:100%; overflow:hidden">
       <div class="container">
         <div id="row-div" class="row" style="position:absolute; min-width:640px">
-          <div class="col-sm-6 col-xs-12">
+          <div class="col-xs-6 target_div">
             <p class="p-head" style="font-size:36px; margin-left:20px">Поиск каналов</p>
             <p class="h4-head" style="font-size:18px; margin-left:20px"><b>Найдите каналы по параметрам их целевой аудитории:</b></p>
             <div class="row text-center">
@@ -86,12 +86,12 @@
               </div>
             </div>
           </div>
-          <div class="col-sm-6 col-xs-12">
+          <div class="col-xs-6 target_div">
             <img id="test-image" src="test-img.jpg" style="margin-left:auto; margin-right:auto; margin-top:120px; width:70%" class="img-responsive">
           </div>
         </div>
         <div id="row-div1" class="row" style="position:fixed; opacity:0; top:0; min-width:640px">
-          <div class="col-sm-6 col-xs-12">
+          <div class="col-xs-6 target_div">
             <p class="p-head" style="font-size:36px; margin-left:20px">Поиск каналов</p>
             <p class="h4-head" style="font-size:18px; margin-left:20px"><b>Найдите каналы по параметрам их целевой аудитории:</b></p>
             <div class="col-xs-6 text-center">
@@ -119,12 +119,12 @@
               </div>
             </div>
           </div>
-          <div class="col-sm-6 col-xs-12">
+          <div class="col-xs-6 target_div">
             <img id="test-image1" src="test-img1.png" style="margin-left:auto; margin-right:auto; margin-top:120px; width:70%" class="img-responsive">
           </div>
         </div>
         <div id="row-div2" class="row" style="position:fixed; opacity:0; top:0; min-width:640px">
-          <div class="col-sm-6 col-xs-12">
+          <div class="col-xs-6 target_div">
             <p class="p-head" style="font-size:36px; margin-left:20px">Поиск каналов</p>
             <p class="h4-head" style="font-size:18px; margin-left:20px"><b>Найдите каналы по параметрам их целевой аудитории:</b></p>
             <div class="col-xs-6 text-center">
@@ -152,7 +152,7 @@
               </div>
             </div>
           </div>
-          <div class="col-sm-6 col-xs-12">
+          <div class="col-xs-6 target_div">
             <img id="test-image1" src="test-img2.png" style="margin-left:auto; margin-right:auto; margin-top:120px; width:70%" class="img-responsive">
           </div>
         </div>
@@ -273,6 +273,13 @@
       var isCSS1Compat = ((document.compatMode || "") === "CSS1Compat");
       if(window.screen.width < 767) {
         var mql = window.matchMedia("(orientation: portrait)");
+          var cols = $('#scroll-div div.target_div');
+          cols.removeClass("col-xs-6").addClass("col-sm-6 col-xs-12");
+          var h1 = $('#scroll-div p.p-head');
+          h1.css("font-size","36px");
+          h1.css("margin-bottom","10px");
+          var h4 = $('#scroll-div p.h4-head');
+          h4.css("font-size","18px");
         if(mql.matches) {  
           window.c = window.innerHeight*2.5;
           $("#scroll-div").height(c);
